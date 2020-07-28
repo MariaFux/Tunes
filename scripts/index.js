@@ -22,3 +22,5 @@ playerBtn.forEach((btn, i) => {
     playerBlock[i].classList.add('active');
   })
 });
+
+videoPlayerInit();

@@ -63,7 +63,7 @@ export const videoPlayerInit = () => {
   });
 
   //изменение положения ползунка
-  videoProgress.addEventListener('change', () => {
+  videoProgress.addEventListener('input', () => {
     const duration = videoPlayer.duration;
     const value = videoProgress. value;
 

@@ -6,6 +6,7 @@ export const videoPlayerInit = () => {
   const videoTimePassed = document.querySelector('.video-time__passed');
   const videoTimeTotal = document.querySelector('.video-time__total');
   const videoProgress = document.querySelector('.video-progress');
+  const videoButtonExpand = document.querySelector('.video-button__expand');
 
   //смена иконок
   const toggleIcon = () => {
@@ -68,5 +69,9 @@ export const videoPlayerInit = () => {
     const value = videoProgress. value;
 
     videoPlayer.currentTime = (value * duration) / 100;
+  });
+
+  videoButtonExpand.addEventListener('click', () => {
+    videoPlayer.webkitEnterFullScreen();
   });
 };

@@ -8,6 +8,8 @@ export const videoPlayerInit = () => {
   const videoProgress = document.querySelector('.video-progress');
   const videoButtonExpand = document.querySelector('.video-button__expand');
   const videoVolume = document.querySelector('.video-volume');
+  const videoButtonVolumeDown = document.querySelector('.video-button__volume-down');
+  const videoButtonVolumeMax = document.querySelector('.video-button__volume-max');
 
   //смена иконок
   const toggleIcon = () => {
@@ -33,6 +35,26 @@ export const videoPlayerInit = () => {
   const stopPlay = () => {
     videoPlayer.pause();
     videoPlayer.currentTime = 0;
+  };
+
+  const toggleVolumeIcon = () => {
+    if (!Boolean(videoPlayer.volume)) {
+      videoButtonVolumeDown.classList.remove('fa-volume-down');
+      videoButtonVolumeDown.classList.add('fa-volume-off');
+    } else {     
+      videoButtonVolumeDown.classList.add('fa-volume-down');
+      videoButtonVolumeDown.classList.remove('fa-volume-off');
+    }
+  };
+
+  const toggleVolume = () => {   
+    if (Boolean(videoPlayer.volume)) {
+      videoPlayer.volume = false;
+      videoVolume.value = videoVolume.min;      
+    } else {
+      videoPlayer.volume = true;
+      videoVolume.value = 50;
+    }
   };
 
   //добавление нуля к минутам и секундам, если < 10
@@ -78,5 +100,16 @@ export const videoPlayerInit = () => {
 
   videoVolume.addEventListener('input', () => {
     videoPlayer.volume = videoVolume.value / 100;
+    toggleVolumeIcon();
   });
+
+  videoButtonVolumeDown.addEventListener('click', toggleVolume);
+  videoButtonVolumeDown.addEventListener('click', toggleVolumeIcon);
+
+  videoButtonVolumeMax.addEventListener('click', () => {
+    videoPlayer.volume = true;
+    videoVolume.value = videoVolume.max;
+  });
+  
+  videoButtonVolumeMax.addEventListener('click', toggleVolumeIcon);
 };

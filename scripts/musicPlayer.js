@@ -11,6 +11,7 @@ export const musicPlayerInit = () => {
   const audioProgressTiming = document.querySelector('.audio-progress__timing');
   const audioTimePassed = document.querySelector('.audio-time__passed');
   const audioTimeTotal = document.querySelector('.audio-time__total'); 
+  const audioProgress = document.querySelector('.audio-progress'); 
 
   const playList = ['hello', 'flow', 'speed'];
 
@@ -96,5 +97,13 @@ export const musicPlayerInit = () => {
 
     audioTimePassed.textContent = `${addZero(minutePassed)}:${addZero(secondPassed)}`;
     audioTimeTotal.textContent = `${addZero(minuteTotal)}:${addZero(secondTotal)}`;
+  });
+
+  audioProgress.addEventListener('click', event => {
+    const x = event.offsetX;
+    const allWidth = audioProgress.clientWidth;
+    const progress = (x / allWidth) * audioPlayer.duration;
+
+    audioPlayer.currentTime = progress;
   });
 };

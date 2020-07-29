@@ -1,3 +1,5 @@
+import { addZero } from './supScript.js';
+
 export const musicPlayerInit = () => {
 
   const audioNavigation = document.querySelector('.audio-navigation');
@@ -6,6 +8,9 @@ export const musicPlayerInit = () => {
   const audioPlayer = document.querySelector('.audio-player');
   const audioImg = document.querySelector('.audio-img');
   const audioHeader = document.querySelector('.audio-header');
+  const audioProgressTiming = document.querySelector('.audio-progress__timing');
+  const audioTimePassed = document.querySelector('.audio-time__passed');
+  const audioTimeTotal = document.querySelector('.audio-time__total'); 
 
   const playList = ['hello', 'flow', 'speed'];
 
@@ -24,7 +29,25 @@ export const musicPlayerInit = () => {
     } else {
       audioPlayer.play();
     }
-  }
+  };
+
+  const nextTrack = () => {
+    if (trackIndex === playList.length - 1) {
+      trackIndex = 0;
+    } else {
+      trackIndex++;
+    }
+    loadTrack();
+  };
+
+  const prevTrack = () => {
+    if (trackIndex !== 0) {
+      trackIndex--;
+    } else {
+      trackIndex = playList.length - 1;
+    }
+    loadTrack();
+  };
   
   audioNavigation.addEventListener('click', event => {
     const target = event.target;
@@ -45,21 +68,33 @@ export const musicPlayerInit = () => {
     }
 
     if (target.classList.contains('audio-button__prev')) {
-      if (trackIndex !== 0) {
-        trackIndex--;
-      } else {
-        trackIndex = playList.length - 1;
-      }
-      loadTrack();
+      prevTrack();
     }
 
     if (target.classList.contains('audio-button__next')) {
-      if (trackIndex === playList.length - 1) {
-        trackIndex = 0;
-      } else {
-        trackIndex++;
-      }
-      loadTrack();
+      nextTrack();
     }
+  });
+
+  audioPlayer.addEventListener('ended', () => {
+    nextTrack();
+    audioPlayer.play();
+  });
+
+  audioPlayer.addEventListener('timeupdate', () => {
+    const duration = audioPlayer.duration;
+    const currentTime = audioPlayer.currentTime;
+    const progress = (currentTime / duration) * 100;
+
+    audioProgressTiming.style.width = `${progress}%`;
+
+    const minutePassed = Math.floor(currentTime / 60) || '0';
+    const secondPassed = Math.floor(currentTime % 60) || '0';
+
+    const minuteTotal = Math.floor(duration / 60) || '0';
+    const secondTotal = Math.floor(duration % 60) || '0';
+
+    audioTimePassed.textContent = `${addZero(minutePassed)}:${addZero(secondPassed)}`;
+    audioTimeTotal.textContent = `${addZero(minuteTotal)}:${addZero(secondTotal)}`;
   });
 };

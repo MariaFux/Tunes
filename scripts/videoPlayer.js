@@ -7,6 +7,7 @@ export const videoPlayerInit = () => {
   const videoTimeTotal = document.querySelector('.video-time__total');
   const videoProgress = document.querySelector('.video-progress');
   const videoButtonExpand = document.querySelector('.video-button__expand');
+  const videoVolume = document.querySelector('.video-volume');
 
   //смена иконок
   const toggleIcon = () => {
@@ -66,12 +67,16 @@ export const videoPlayerInit = () => {
   //изменение положения ползунка
   videoProgress.addEventListener('input', () => {
     const duration = videoPlayer.duration;
-    const value = videoProgress. value;
+    const value = videoProgress.value;
 
     videoPlayer.currentTime = (value * duration) / 100;
   });
 
   videoButtonExpand.addEventListener('click', () => {
-    videoPlayer.webkitEnterFullScreen();
+    videoPlayer.requestFullscreen();
+  });
+
+  videoVolume.addEventListener('input', () => {
+    videoPlayer.volume = videoVolume.value / 100;
   });
 };

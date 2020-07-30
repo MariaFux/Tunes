@@ -6,6 +6,9 @@ export const radioPlayerInit = () => {
   const radioItem = document.querySelectorAll('.radio-item');
   const radioHeaderBig = document.querySelector('.radio-header__big');
   const radioCoverImg = document.querySelector('.radio-cover__img');
+  const radioVolume = document.querySelector('.radio-volume');
+  const radioButtonVolumeDown = document.querySelector('.radio-button__volume-down');
+  const radioButtonVolumeMax = document.querySelector('.radio-button__volume-max');
 
   const audio = new Audio();
   audio.type = 'audio/aac';

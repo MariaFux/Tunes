@@ -40,7 +40,7 @@ export const videoPlayerInit = () => {
   };
 
   const toggleVolumeIcon = () => {
-    if (videoVolume.value<=0 && !videoPlayer.volume) {
+    if (videoVolume.value <= 0 && !videoPlayer.volume) {
       videoButtonVolumeDown.classList.remove('fa-volume-down');
       videoButtonVolumeDown.classList.add('fa-volume-off');
     } else {     
@@ -55,7 +55,7 @@ export const videoPlayerInit = () => {
       videoPlayer.volume = 0;
       videoVolume.value = 0;      
     } else {
-      videoPlayer.volume = prevVolume/100;
+      videoPlayer.volume = prevVolume / 100;
       videoVolume.value = prevVolume;
     }
   };

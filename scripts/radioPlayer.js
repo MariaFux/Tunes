@@ -15,6 +15,8 @@ export const radioPlayerInit = () => {
 
   radioStop.disabled = true;
 
+  let prevVolume = 1;
+
   const changeIconPlay = () => {
     if (audio.paused){
       radio.classList.remove('play');
@@ -32,6 +34,27 @@ export const radioPlayerInit = () => {
     elem.classList.add('select');
   }
 
+  const toggleVolumeIcon = () => {
+    if (radioVolume.value <= 0 && !audio.volume) {
+      radioButtonVolumeDown.classList.remove('fa-volume-down');
+      radioButtonVolumeDown.classList.add('fa-volume-off');
+    } else {     
+      radioButtonVolumeDown.classList.add('fa-volume-down');
+      radioButtonVolumeDown.classList.remove('fa-volume-off');
+    }
+  };
+
+  const toggleVolume = () => {   
+    if (radioVolume.value && audio.volume) {
+      prevVolume = radioVolume.value;
+      audio.volume = 0;
+      radioVolume.value = 0;      
+    } else {
+      audio.volume = prevVolume / 100;
+      radioVolume.value = prevVolume;
+    }
+  };
+
   radioNavigation.addEventListener('change', event => {
     const target = event.target;
     const parrent = target.closest('.radio-item');
@@ -46,7 +69,7 @@ export const radioPlayerInit = () => {
     radioStop.disabled = false;
     audio.src = target.dataset.radioStantion;
     audio.play();
-    changeIconPlay();    
+    changeIconPlay();   
   });
 
   radioStop.addEventListener('click', () => {
@@ -57,4 +80,20 @@ export const radioPlayerInit = () => {
     }
     changeIconPlay();
   });
+
+  radioVolume.addEventListener('input', () => {
+    audio.volume = radioVolume.value / 100;
+    prevVolume = radioVolume.value;
+    toggleVolumeIcon();
+  });
+
+  radioButtonVolumeDown.addEventListener('click', toggleVolume);
+  radioButtonVolumeDown.addEventListener('click', toggleVolumeIcon);
+
+  radioButtonVolumeMax.addEventListener('click', () => {
+    audio.volume = 1;
+    radioVolume.value = radioVolume.max;
+  });
+  
+  radioButtonVolumeMax.addEventListener('click', toggleVolumeIcon);
 };

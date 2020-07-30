@@ -11,6 +11,8 @@ export const videoPlayerInit = () => {
   const videoButtonVolumeDown = document.querySelector('.video-button__volume-down');
   const videoButtonVolumeMax = document.querySelector('.video-button__volume-max');
 
+  let prevVolume = 1;
+
   //смена иконок
   const toggleIcon = () => {
     if (videoPlayer.paused) {
@@ -38,7 +40,7 @@ export const videoPlayerInit = () => {
   };
 
   const toggleVolumeIcon = () => {
-    if (!Boolean(videoPlayer.volume)) {
+    if (videoVolume.value<=0 && !videoPlayer.volume) {
       videoButtonVolumeDown.classList.remove('fa-volume-down');
       videoButtonVolumeDown.classList.add('fa-volume-off');
     } else {     
@@ -48,12 +50,13 @@ export const videoPlayerInit = () => {
   };
 
   const toggleVolume = () => {   
-    if (Boolean(videoPlayer.volume)) {
-      videoPlayer.volume = false;
-      videoVolume.value = videoVolume.min;      
+    if (videoVolume.value && videoPlayer.volume) {
+      prevVolume = videoVolume.value;
+      videoPlayer.volume = 0;
+      videoVolume.value = 0;      
     } else {
-      videoPlayer.volume = true;
-      videoVolume.value = 50;
+      videoPlayer.volume = prevVolume/100;
+      videoVolume.value = prevVolume;
     }
   };
 
@@ -100,6 +103,7 @@ export const videoPlayerInit = () => {
 
   videoVolume.addEventListener('input', () => {
     videoPlayer.volume = videoVolume.value / 100;
+    prevVolume = videoVolume.value;
     toggleVolumeIcon();
   });
 
@@ -107,7 +111,7 @@ export const videoPlayerInit = () => {
   videoButtonVolumeDown.addEventListener('click', toggleVolumeIcon);
 
   videoButtonVolumeMax.addEventListener('click', () => {
-    videoPlayer.volume = true;
+    videoPlayer.volume = 1;
     videoVolume.value = videoVolume.max;
   });
   

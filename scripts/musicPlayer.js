@@ -30,6 +30,8 @@ export const musicPlayerInit = () => {
     } else {
       audioPlayer.play();
     }
+
+    setTimeout(updateTime, 30);
   };
 
   const nextTrack = () => {
@@ -49,6 +51,25 @@ export const musicPlayerInit = () => {
     }
     loadTrack();
   };
+
+  const updateTime = () => {
+    const duration = audioPlayer.duration;
+    const currentTime = audioPlayer.currentTime;
+    const progress = (currentTime / duration) * 100;
+
+    audioProgressTiming.style.width = `${progress}%`;
+
+    const minutePassed = Math.floor(currentTime / 60) || '0';
+    const secondPassed = Math.floor(currentTime % 60) || '0';
+
+    const minuteTotal = Math.floor(duration / 60) || '0';
+    const secondTotal = Math.floor(duration % 60) || '0';
+
+    audioTimePassed.textContent = `${addZero(minutePassed)}:${addZero(secondPassed)}`;
+    audioTimeTotal.textContent = `${addZero(minuteTotal)}:${addZero(secondTotal)}`;
+  };
+
+  updateTime();
   
   audioNavigation.addEventListener('click', event => {
     const target = event.target;
@@ -80,24 +101,9 @@ export const musicPlayerInit = () => {
   audioPlayer.addEventListener('ended', () => {
     nextTrack();
     audioPlayer.play();
-  });
+  }); 
 
-  audioPlayer.addEventListener('timeupdate', () => {
-    const duration = audioPlayer.duration;
-    const currentTime = audioPlayer.currentTime;
-    const progress = (currentTime / duration) * 100;
-
-    audioProgressTiming.style.width = `${progress}%`;
-
-    const minutePassed = Math.floor(currentTime / 60) || '0';
-    const secondPassed = Math.floor(currentTime % 60) || '0';
-
-    const minuteTotal = Math.floor(duration / 60) || '0';
-    const secondTotal = Math.floor(duration % 60) || '0';
-
-    audioTimePassed.textContent = `${addZero(minutePassed)}:${addZero(secondPassed)}`;
-    audioTimeTotal.textContent = `${addZero(minuteTotal)}:${addZero(secondTotal)}`;
-  });
+  audioPlayer.addEventListener('timeupdate', updateTime);
 
   audioProgress.addEventListener('click', event => {
     const x = event.offsetX;

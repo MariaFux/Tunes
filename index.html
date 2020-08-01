@@ -21,7 +21,8 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
-	<title>Tunes</title>
+  <title>Tunes</title>
+  <script src="scripts/index.js" type="module" defer></script>
 
 	<link rel="stylesheet" href="styles/normalize.css">
 	<link rel="stylesheet" href="styles/font-awesome.min.css">
@@ -59,6 +60,10 @@
 						<p class="video-time video-time__passed">00:00</p>
 						<input type="range" class="video-progress" min="0" max="100" step="0.1" value="0">
 						<p class="video-time video-time__total">00:00</p>
+						<button class="video-button video-button__volume-down fa fa-volume-down"></button>
+						<input type="range" class="video-volume" min="0" max="100" step="1" value="100">
+						<button class="video-button video-button__volume-max fa fa-volume-up"></button>
+						<button class="video-button video-button__expand fa fa-arrows-alt"></button>
 					</nav>
 				</div>
 			</div>
@@ -132,7 +137,7 @@
 									</div>
 									<input class="radio-btn" type="radio" id="recordRus" name="radioStantion"
 											data-radio-stantion="http://air.radiorecord.ru:8102/rus_320">
-									<span class="radio-name">Record Rus</span>
+									<span class="radio-name">Record</span>
 								</label>
 							</li>
 
@@ -154,7 +159,7 @@
 									</div>
 									<input class="radio-btn" type="radio" id="roadRadio" name="radioStantion"
 											data-radio-stantion="http://dorognoe.hostingradio.ru:8000/dorognoe">
-									<span class="radio-name">Дорожное Радио</span>
+									<span class="radio-name">Дорожное</span>
 								</label>
 							</li>
 
@@ -175,6 +180,9 @@
 			</div>
 			<footer class="footer-fix radio-footer">
 				<button class="radio-stop fa fa-play"></button>
+				<button class="radio-button radio-button__volume-down fa fa-volume-down"></button>
+						<input type="range" class="radio-volume" min="0" max="100" step="1" value="100">
+						<button class="radio-button radio-button__volume-max fa fa-volume-up"></button>
 			</footer>
 		</article>
 	</main>

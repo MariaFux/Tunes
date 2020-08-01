@@ -145,4 +145,16 @@
       opacity: .3;
     }
   }
+
+  &-button {
+    color: #fff;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    margin: 15px;
+  }
+
+  &-volume {
+    max-width: 100px;
+  }
 }

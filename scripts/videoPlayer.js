@@ -115,4 +115,10 @@ export const videoPlayerInit = () => {
   });
   
   videoButtonVolumeMax.addEventListener('click', toggleVolumeIcon);
+
+  videoPlayerInit.stop = () => {
+    if (!videoPlayer.paused) {
+      stopPlay();
+    }
+  };
 };

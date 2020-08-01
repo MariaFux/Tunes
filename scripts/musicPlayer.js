@@ -31,7 +31,9 @@ export const musicPlayerInit = () => {
       audioPlayer.play();
     }
 
-    setTimeout(updateTime, 30);
+    audioPlayer.addEventListener('canplay', () => {
+      updateTime();
+    });
   };
 
   const nextTrack = () => {

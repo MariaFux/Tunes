@@ -96,4 +96,9 @@ export const radioPlayerInit = () => {
   });
   
   radioButtonVolumeMax.addEventListener('click', toggleVolumeIcon);
+
+  radioPlayerInit.stop = () => {
+    audio.pause();
+    changeIconPlay();
+  };
 };
